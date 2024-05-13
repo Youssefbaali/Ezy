@@ -1,7 +1,6 @@
 package modele;
 
-
-public class Vehicule {
+public abstract class Vehicule {
     private String marque;
     private String modele;
     private int anneeFabrication;

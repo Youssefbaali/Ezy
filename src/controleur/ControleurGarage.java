@@ -1,16 +1,21 @@
 package controleur;
 
-
-
-import vue.InterfaceGraphique;
 import modele.Garage;
+import modele.Vehicule;
 
 public class ControleurGarage {
     private Garage garage;
-    private InterfaceGraphique interfaceGraphique;
 
-    public ControleurGarage(Garage garage, InterfaceGraphique interfaceGraphique) {
+    public ControleurGarage(Garage garage) {
         this.garage = garage;
-        this.interfaceGraphique = interfaceGraphique;
+    }
+
+    public Vehicule rechercherVehicule(String type, String code) {
+        for (Vehicule vehicule : garage.getVehicules()) {
+            if (vehicule.getCode().equals(code) && vehicule.getClass().getSimpleName().equalsIgnoreCase(type)) {
+                return vehicule;
+            }
+        }
+        return null;
     }
 }

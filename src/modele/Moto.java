@@ -1,7 +1,5 @@
 package modele;
 
-
-
 public class Moto extends Vehicule {
     private int cylindree;
 

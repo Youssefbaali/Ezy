@@ -1,6 +1,5 @@
 package vue;
 
-
 import controleur.ControleurGarage;
 import modele.Garage;
 import modele.Vehicule;
@@ -18,9 +17,11 @@ public class InterfaceGraphique {
     private JButton buttonRechercher;
 
     private Garage garage;
+    private ControleurGarage controleur;
 
     public InterfaceGraphique(Garage garage) {
         this.garage = garage;
+        this.controleur = new ControleurGarage(garage);
         initialize();
     }
 
@@ -30,9 +31,19 @@ public class InterfaceGraphique {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
+        // Ajout d'une étiquette pour le choix du type de véhicule
+        JLabel labelTypeVehicule = new JLabel("Type de véhicule :");
+        labelTypeVehicule.setBounds(20, 0, 120, 20);
+        frame.getContentPane().add(labelTypeVehicule);
+
         comboBoxTypeVehicule = new JComboBox<>(new String[]{"Voiture", "Moto"});
         comboBoxTypeVehicule.setBounds(20, 20, 100, 25);
         frame.getContentPane().add(comboBoxTypeVehicule);
+
+        // Ajout d'une étiquette pour le code du véhicule
+        JLabel labelCodeVehicule = new JLabel("Code du véhicule :");
+        labelCodeVehicule.setBounds(140, 0, 120, 20);
+        frame.getContentPane().add(labelCodeVehicule);
 
         textFieldCodeVehicule = new JTextField();
         textFieldCodeVehicule.setBounds(140, 20, 100, 25);
@@ -66,14 +77,8 @@ public class InterfaceGraphique {
         String typeVehicule = (String) comboBoxTypeVehicule.getSelectedItem();
         String codeVehicule = textFieldCodeVehicule.getText();
 
-        // Recherche du véhicule dans le garage
-        Vehicule vehicule = null;
-        for (Vehicule v : garage.getVehicules()) {
-            if (v.getCode().equals(codeVehicule) && v.getClass().getSimpleName().equals(typeVehicule)) {
-                vehicule = v;
-                break;
-            }
-        }
+        // Utiliser le contrôleur pour rechercher le véhicule
+        Vehicule vehicule = controleur.rechercherVehicule(typeVehicule, codeVehicule);
 
         // Affichage des détails du véhicule
         if (vehicule != null) {
@@ -85,3 +90,5 @@ public class InterfaceGraphique {
         }
     }
 }
+
+
